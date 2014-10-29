@@ -8,6 +8,6 @@
 
 include dirname(__FILE__) . '/../IP2CITY.class.php';
 $ip2city = new IP2CITY("UTFWry.dat");
-$ip = $argv[1] ? $argv[1] : "58.83.177.166";
+$ip = $argv[1] ? $argv[1] : "121.199.24.143";
 $address = $ip2city->getAddr($ip);
 echo $address . PHP_EOL;

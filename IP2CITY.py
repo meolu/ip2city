@@ -52,7 +52,7 @@ class IPLocator :
             if b == 0x02:
                 countryAddr = self.getString( self.getLong3() )
                 self.ipdb.seek( countryOffset + 4 )
-                print "=",self.ipdb.tell()
+                #print "=",self.ipdb.tell()
             else:
                 countryAddr = self.getString( countryOffset )
             areaAddr = self.getAreaAddr()
@@ -77,6 +77,7 @@ class IPLocator :
 
     def setIpRange(self,index):
         offset = self.firstIndex + index * 7
+        print "offset: %d" %(offset)
         self.ipdb.seek( offset )
         buf = self.ipdb.read( 7 )
         (self.curStartIp,of1,of2) = struct.unpack("IHB",buf)
@@ -143,21 +144,3 @@ class IPLocator :
         (a,b) = struct.unpack('HB',str)
         return (b << 16) + a
 
-#Demo
-def main():
-    IPL = IPLocator( "UTFWry.dat" )
-    ip = ""
-    if len(sys.argv) != 2:
-        print 'Usage: python IPLocator.py <IP>'
-        return
-    else:
-        ip = sys.argv[1]
-
-    print IPL.str2ip(ip)
-    address = IPL.getIpAddr( IPL.str2ip(ip) )
-    range = IPL.getIpRange( IPL.str2ip(ip) )
-    print "此IP %s 属于 %s\n所在网段: %s" % (ip,address, range)
-
-
-if __name__ == "__main__" :
-    main()
