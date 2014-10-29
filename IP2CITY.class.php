@@ -29,7 +29,7 @@ class IP2CITY {
         $this->count = ($this->lastIndex - $this->firstIndex) / 7 + 1;
     }
 
-    function getAddr($ip) {
+    function ip2city($ip) {
         if (!is_numeric($ip)) $ip = ip2long($ip);
         $ip = pack("N", intval($ip));
         $this->searchIpRange($ip);
