@@ -7,8 +7,8 @@
  * ************************************************************************/
 #include<stdio.h>
 #include<stdlib.h>
-#include <string.h>
-#include <inttypes.h>
+#include<string.h>
+#include<inttypes.h>
 #define BYTE3INT(X)  (    ( X[0] & 0x000000FF ) \
                       | ( ( X[1] & 0x000000FF ) <<  8 ) \
                       | ( ( X[2] & 0x000000FF ) << 16 )  )
@@ -22,22 +22,22 @@
 typedef struct indexIP {
     unsigned char ip[4];
     unsigned char local[3];
-} ipstruct;
+} IpStruct;
 
 
-#define ipsize  (int)sizeof(ipstruct)
+#define ipsize  (int)sizeof(IpStruct)
 typedef unsigned int uint;
 
-int searchIndex(ipstruct xip, FILE * db, int startPos, int mount) {
+int searchIndex(unsigned int iplong, FILE * db, int startPos, int mount) {
     int i = 0, j = mount;
     int m, c;
-    ipstruct tmp;
+    IpStruct tmp;
 
     while (i < j - 1) {
         m = (int) (i + j) / 2;
         fseek(db, startPos+m*ipsize, SEEK_SET);
         fread(&tmp, ipsize, 1, db);
-        c = compare(tmp.ip, xip.ip);
+        c = compare(tmp.ip, iplong);
         //printf("compare out: %d %d\n", c, m);
         if (c < 0) {
             i = m;
@@ -74,14 +74,14 @@ void GetData(unsigned char* str, FILE* pFile, int max) {
     str[i] = 0;
 }
 
-int searchLocal(ipstruct tmp, ipstruct xip, FILE * db, char * local) {
+int searchLocal(IpStruct tmp, unsigned int iplong, FILE * db, char * local) {
     char buf[80] = {0};
     int tmpCount;
     int pos = BYTE3INT(tmp.local);
     printf("local pos: %d\n", pos);
     fseek(db, pos, SEEK_SET);
     fread(buf, 4, 1, db);
-    int c = compare(xip.ip, buf);
+    int c = compare(iplong, buf);
     printf("is compare: %d\n", c);
 
     fread(buf, 1, 1, db);
@@ -142,36 +142,19 @@ int main() {
     fread(&indexHead, sizeof(indexHead), 1, in);
     fread(&indexTail, sizeof(indexTail), 1, in);
 
-    //ipstruct xip = {143,24,199,121};
-    ipstruct xip = {211,157,79,117};
-    ipstruct tmp;
-    //ipstruct zip = {121,199,24,143};
-    int pos = searchIndex(xip, in, indexHead, indexTail);
+    //IpStruct xip = {143,24,199,121};
+    IpStruct xip = {211,157,79,117};
+    IpStruct tmp;
+    int pos = searchIndex(iplong, in, indexHead, indexTail);
 
     fseek(in, indexHead+pos*ipsize, SEEK_SET);
     printf("====\n");
     printf("xip %d\n", BYTE4INT(xip.ip));
     fread(&tmp, ipsize, 1, in);
     printf("xip %d\n", BYTE4INT(tmp.ip));
-    searchLocal(tmp, xip, in, local);
+    searchLocal(tmp, iplong, in, local);
     //printf("xip %d\n", BYTE4INT(xip.ip));
     //printf("zip %d\n", BYTE4INT(zip.ip));
     return 0;
 }
-
-void fmtTo(int number, int k) {
-    unsigned int tmp[8], i, m;
-    m = number;
-    for (i=0; m; i++) {
-        tmp[i] = m % k;
-        m /= k;
-    }
-
-    for (; i; i--) {
-        printf("%d", tmp[i-1]);
-    }
-    printf("\n");
-    return ;
-}
-
 
