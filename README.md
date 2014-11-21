@@ -9,6 +9,7 @@ echo ip_city("122.226.100.69");
 ## 简单安装
 - 直接拷贝ip2city.so到PHP扩展目录
 - php.ini中起用`extension=ip2city.so`
+- php.ini中配置数据文件位置`ip2city.data=/path/of/ip2city.data`
 
 ## 编译安装
 - 下载PHP源码
@@ -32,5 +33,5 @@ echo ip_city("122.226.100.69");
 - 配置
 
     php.ini中起用`extension=ip2city.so`
-
+    php.ini中配置数据文件位置`ip2city.data=/path/of/ip2city.data`
 

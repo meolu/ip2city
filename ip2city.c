@@ -66,8 +66,8 @@ FILE * in;
  * Every user visible function must have an entry in ip2city_functions[].
  */
 const zend_function_entry ip2city_functions[] = {
-	PHP_FE(ip_city,	NULL)		/* For testing, remove later. */
-	PHP_FE_END	/* Must be the last line in ip2city_functions[] */
+    PHP_FE(ip_city,    NULL)        /* For testing, remove later. */
+    PHP_FE_END    /* Must be the last line in ip2city_functions[] */
 };
 /* }}} */
 
@@ -75,19 +75,19 @@ const zend_function_entry ip2city_functions[] = {
  */
 zend_module_entry ip2city_module_entry = {
 #if ZEND_MODULE_API_NO >= 20010901
-	STANDARD_MODULE_HEADER,
+    STANDARD_MODULE_HEADER,
 #endif
-	"ip2city",
-	ip2city_functions,
-	PHP_MINIT(ip2city),
-	PHP_MSHUTDOWN(ip2city),
-	PHP_RINIT(ip2city),		/* Replace with NULL if there's nothing to do at request start */
-	PHP_RSHUTDOWN(ip2city),	/* Replace with NULL if there's nothing to do at request end */
-	PHP_MINFO(ip2city),
+    "ip2city",
+    ip2city_functions,
+    PHP_MINIT(ip2city),
+    PHP_MSHUTDOWN(ip2city),
+    PHP_RINIT(ip2city),        /* Replace with NULL if there's nothing to do at request start */
+    PHP_RSHUTDOWN(ip2city),    /* Replace with NULL if there's nothing to do at request end */
+    PHP_MINFO(ip2city),
 #if ZEND_MODULE_API_NO >= 20010901
-	"0.1", /* Replace with version number for your extension */
+    "0.1", /* Replace with version number for your extension */
 #endif
-	STANDARD_MODULE_PROPERTIES
+    STANDARD_MODULE_PROPERTIES
 };
 /* }}} */
 
@@ -97,12 +97,9 @@ ZEND_GET_MODULE(ip2city)
 
 /* {{{ PHP_INI
  */
-/* Remove comments and fill if you need to have entries in php.ini
 PHP_INI_BEGIN()
-    STD_PHP_INI_ENTRY("ip2city.global_value",      "42", PHP_INI_ALL, OnUpdateLong, global_value, zend_ip2city_globals, ip2city_globals)
-    STD_PHP_INI_ENTRY("ip2city.global_string", "foobar", PHP_INI_ALL, OnUpdateString, global_string, zend_ip2city_globals, ip2city_globals)
+    PHP_INI_ENTRY("ip2city.data", "foobar", PHP_INI_ALL, NULL)
 PHP_INI_END()
-*/
 /* }}} */
 
 /* {{{ php_ip2city_init_globals
@@ -110,8 +107,8 @@ PHP_INI_END()
 /* Uncomment this function if you have INI entries
 static void php_ip2city_init_globals(zend_ip2city_globals *ip2city_globals)
 {
-	ip2city_globals->global_value = 0;
-	ip2city_globals->global_string = NULL;
+    ip2city_globals->global_value = 0;
+    ip2city_globals->global_string = NULL;
 }
 */
 /* }}} */
@@ -120,13 +117,11 @@ static void php_ip2city_init_globals(zend_ip2city_globals *ip2city_globals)
  */
 PHP_MINIT_FUNCTION(ip2city)
 {
-	/* If you have INI entries, uncomment these lines
-	REGISTER_INI_ENTRIES();
-	*/
-    in = fopen("/home/paopao/Data/soft/php-5.5.1/ext/huamanshu/UTFWry.dat", "rb");
+    REGISTER_INI_ENTRIES();
+    in = fopen(INI_STR("ip2city.data"), "rb");
     // php_printf("php_minit_function\n");
 
-	return SUCCESS;
+    return SUCCESS;
 }
 /* }}} */
 
@@ -134,10 +129,8 @@ PHP_MINIT_FUNCTION(ip2city)
  */
 PHP_MSHUTDOWN_FUNCTION(ip2city)
 {
-	/* uncomment this line if you have INI entries
-	UNREGISTER_INI_ENTRIES();
-	*/
-	return SUCCESS;
+    UNREGISTER_INI_ENTRIES();
+    return SUCCESS;
 }
 /* }}} */
 
@@ -147,7 +140,7 @@ PHP_MSHUTDOWN_FUNCTION(ip2city)
 PHP_RINIT_FUNCTION(ip2city)
 {
 
-	return SUCCESS;
+    return SUCCESS;
 }
 /* }}} */
 
@@ -156,7 +149,7 @@ PHP_RINIT_FUNCTION(ip2city)
  */
 PHP_RSHUTDOWN_FUNCTION(ip2city)
 {
-	return SUCCESS;
+    return SUCCESS;
 }
 /* }}} */
 
@@ -164,13 +157,11 @@ PHP_RSHUTDOWN_FUNCTION(ip2city)
  */
 PHP_MINFO_FUNCTION(ip2city)
 {
-	php_info_print_table_start();
-	php_info_print_table_header(2, "ip2city support", "enabled");
-	php_info_print_table_end();
+    php_info_print_table_start();
+    php_info_print_table_header(2, "ip2city support", "enabled");
+    php_info_print_table_end();
 
-	/* Remove comments if you have entries in php.ini
-	DISPLAY_INI_ENTRIES();
-	*/
+    DISPLAY_INI_ENTRIES();
 }
 /* }}} */
 
@@ -208,8 +199,6 @@ PHP_FUNCTION(ip_city)
     }
     iplong = ntohl(ip);
 #endif
-   
-
     unsigned int indexHead = 0;
     unsigned int indexTail = 0;
     fseek(in, 0, SEEK_SET);
@@ -248,7 +237,7 @@ int searchIndex(unsigned int iplong, FILE * db, int startPos, int mount) {
         }
     }
     return i;
-    
+
 }
 
 int compare(unsigned char a[4], unsigned int tb) {
