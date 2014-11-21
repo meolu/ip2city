@@ -13,21 +13,21 @@ echo ip_city("122.226.100.69");
 ## 编译安装
 - 下载PHP源码
     
-    cd ext
-    ./ext_skel --extname=ip2city
-    /usr/local/php/bin/phpize
+        cd ext
+        ./ext_skel --extname=ip2city
+        /usr/local/php/bin/phpize
     
 - 启用
 
-    vi config.m4 #把16行和18行前面的dnl去掉
-    16 PHP_ARG_ENABLE(ip2city, whether to enable ip2city support,
-    17 dnl Make sure that the comment is aligned:
-    18 [  --enable-ip2city           Enable ip2city support])
+        vi config.m4 #把16行和18行前面的dnl去掉
+        16 PHP_ARG_ENABLE(ip2city, whether to enable ip2city support,
+        17 dnl Make sure that the comment is aligned:
+        18 [  --enable-ip2city           Enable ip2city support])
     
 - 编译
 
-    ./configure --with-php-config=/php/path/php/bin/php-config
-    make && sudo make install
+        ./configure --with-php-config=/php/path/php/bin/php-config
+        make && sudo make install
     
 - 配置
 
