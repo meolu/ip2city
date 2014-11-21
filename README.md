@@ -15,7 +15,7 @@ echo ip_city("122.226.100.69");
     
         cd ext
         ./ext_skel --extname=ip2city
-        /usr/local/php/bin/phpize
+        /php/path/php/bin/phpize
     
 - 启用
 
@@ -27,7 +27,7 @@ echo ip_city("122.226.100.69");
 - 编译
 
         ./configure --with-php-config=/php/path/php/bin/php-config
-        make && sudo make install
+        make && make install
     
 - 配置
 
