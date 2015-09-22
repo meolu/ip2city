@@ -1,0 +1,13 @@
+// $Id$
+// vim:ft=javascript
+
+// If your extension references something external, use ARG_WITH
+// ARG_WITH("ip2city", "for ip2city support", "no");
+
+// Otherwise, use ARG_ENABLE
+// ARG_ENABLE("ip2city", "enable ip2city support", "no");
+
+if (PHP_IP2CITY != "no") {
+	EXTENSION("ip2city", "ip2city.c");
+}
+

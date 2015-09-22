@@ -6,32 +6,17 @@ echo ip_city("122.226.100.69");
 // 浙江省金华市 电信
 ```
 
-## 简单安装
-- 直接拷贝ip2city.so到PHP扩展目录
-- php.ini中起用`extension=ip2city.so`
-- php.ini中配置数据文件位置`ip2city.data=/path/of/ip2city.data`
 
-## 编译安装
-- 下载PHP源码
-    
-        cd ext
-        ./ext_skel --extname=ip2city
-        /php/path/php/bin/phpize
-    
-- 启用
+## 扩展快速安装
+```shell
+git clone git@github.com:meolu/ip2city.git
+cd ip2city
+/php/path/bin/phpize
+./configure --with-php-config=/php/path/bin/php-config
+make && make install
+```
 
-        vi config.m4 #把16行和18行前面的dnl去掉
-        16 PHP_ARG_ENABLE(ip2city, whether to enable ip2city support,
-        17 dnl Make sure that the comment is aligned:
-        18 [  --enable-ip2city           Enable ip2city support])
-    
-- 编译
-
-        ./configure --with-php-config=/php/path/php/bin/php-config
-        make && make install
-    
-- 配置
-
-    php.ini中起用`extension=ip2city.so`
-    php.ini中配置数据文件位置`ip2city.data=/path/of/ip2city.data`
+## php.ini配置
+- php.ini中添加`extension=ip2city.so`
+- php.ini中添加数据文件：`ip2city.data=/path/of/ip2city.data`
 
