@@ -13,9 +13,9 @@ dnl [  --with-ip2city             Include ip2city support])
 
 dnl Otherwise use enable:
 
-dnl PHP_ARG_ENABLE(ip2city, whether to enable ip2city support,
+PHP_ARG_ENABLE(ip2city, whether to enable ip2city support,
 dnl Make sure that the comment is aligned:
-dnl [  --enable-ip2city           Enable ip2city support])
+[  --enable-ip2city           Enable ip2city support])
 
 if test "$PHP_IP2CITY" != "no"; then
   dnl Write more examples of tests here...
